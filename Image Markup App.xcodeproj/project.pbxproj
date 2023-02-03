@@ -58,13 +58,11 @@
 		81CF939D298C1C290073B3CF /* Image Markup App */ = {
 			isa = PBXGroup;
 			children = (
-				81CF939E298C1C290073B3CF /* AppDelegate.swift */,
 				81CF93B3298C1CF10073B3CF /* Scene */,
-				81CF93A0298C1C290073B3CF /* SceneDelegate.swift */,
+				81DC34F7298D2592004570C0 /* View */,
+				81DC34F8298D2597004570C0 /* Extra */,
 				81CF93A2298C1C290073B3CF /* HomeViewController.swift */,
-				81CF93A4298C1C290073B3CF /* Main.storyboard */,
 				81CF93A7298C1C2A0073B3CF /* Assets.xcassets */,
-				81CF93A9298C1C2A0073B3CF /* LaunchScreen.storyboard */,
 				81CF93AC298C1C2A0073B3CF /* Info.plist */,
 			);
 			path = "Image Markup App";
@@ -84,6 +82,32 @@
 				81CF93B5298C1D140073B3CF /* EditViewController.swift */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		81DC34F7298D2592004570C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				81DC34F9298D25AE004570C0 /* Storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		81DC34F8298D2597004570C0 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				81CF939E298C1C290073B3CF /* AppDelegate.swift */,
+				81CF93A0298C1C290073B3CF /* SceneDelegate.swift */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
+		81DC34F9298D25AE004570C0 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				81CF93A4298C1C290073B3CF /* Main.storyboard */,
+				81CF93A9298C1C2A0073B3CF /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
