@@ -7,13 +7,6 @@
 
 import UIKit
 
-protocol DrawingViewDelegate {
-    
-    func didTapUndo()
-    func didTapAddArrow()
-    func didTapChangeColor()
-}
-
 class DrawingView: UIView {
     
     private var lastPoint: CGPoint = .zero
@@ -22,6 +15,7 @@ class DrawingView: UIView {
     private let pencil = Pencil()
     private let canvasView = UIView()
     private let mainImageView = UIImageView()
+    let pen = Pen()
     
     var completedImage = UIImage()
     var isDrawing: Bool = true
@@ -104,8 +98,8 @@ class DrawingView: UIView {
         
         currentLayer.path = currentPath.cgPath
         currentLayer.backgroundColor = UIColor.red.cgColor
-        currentLayer.strokeColor = pencil.color.cgColor
-        currentLayer.lineWidth = pencil.strokeSize
+        currentLayer.strokeColor = pen.getColor().cgColor
+        currentLayer.lineWidth = pen.getStrokeSize()
         currentLayer.lineCap = .round
         currentLayer.lineJoin = .round
     }
@@ -119,7 +113,7 @@ class DrawingView: UIView {
 
         for layer in sublayers {
             if let shapeLayer = layer as? CAShapeLayer,
-                let outline = shapeLayer.path?.copy(strokingWithWidth: pencil.outlineSize, lineCap: .butt, lineJoin: .round, miterLimit: 0),
+               let outline = shapeLayer.path?.copy(strokingWithWidth: pen.getOutlineSize(), lineCap: .butt, lineJoin: .round, miterLimit: 0),
                 outline.contains(point) == true {
                 return shapeLayer
             }

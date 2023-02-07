@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81132F9A29923D2300E3272B /* Pen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81132F9929923D2300E3272B /* Pen.swift */; };
 		8115F689298D29EF001EC4B5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF93A2298C1C290073B3CF /* HomeViewController.swift */; };
 		8115F68C298D2A8F001EC4B5 /* StoryboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115F68B298D2A8F001EC4B5 /* StoryboardHandler.swift */; };
 		8115F68F298D323B001EC4B5 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115F68E298D323B001EC4B5 /* DrawingView.swift */; };
 		8115F691298D3256001EC4B5 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115F690298D3256001EC4B5 /* UIView+Constraints.swift */; };
+		81876CA929911ACF00A7DAF6 /* PopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81876CA829911ACF00A7DAF6 /* PopoverView.xib */; };
+		81876CAB29911ADD00A7DAF6 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81876CAA29911ADD00A7DAF6 /* PopoverView.swift */; };
+		81876CAD299124F800A7DAF6 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81876CAC299124F800A7DAF6 /* PopoverViewController.swift */; };
 		81CF939F298C1C290073B3CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF939E298C1C290073B3CF /* AppDelegate.swift */; };
 		81CF93A1298C1C290073B3CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF93A0298C1C290073B3CF /* SceneDelegate.swift */; };
 		81CF93A6298C1C290073B3CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81CF93A4298C1C290073B3CF /* Main.storyboard */; };
@@ -20,9 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81132F9929923D2300E3272B /* Pen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pen.swift; sourceTree = "<group>"; };
 		8115F68B298D2A8F001EC4B5 /* StoryboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardHandler.swift; sourceTree = "<group>"; };
 		8115F68E298D323B001EC4B5 /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		8115F690298D3256001EC4B5 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		81876CA829911ACF00A7DAF6 /* PopoverView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverView.xib; sourceTree = "<group>"; };
+		81876CAA29911ADD00A7DAF6 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		81876CAC299124F800A7DAF6 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		81CF939B298C1C290073B3CF /* Image Markup App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Image Markup App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81CF939E298C1C290073B3CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81CF93A0298C1C290073B3CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81132F9829923D0F00E3272B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81132F9929923D2300E3272B /* Pen.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8115F687298D2962001EC4B5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,8 +82,26 @@
 			isa = PBXGroup;
 			children = (
 				8115F68E298D323B001EC4B5 /* DrawingView.swift */,
+				81876CAC299124F800A7DAF6 /* PopoverViewController.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		81876CA629911AB600A7DAF6 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				81876CA729911ABE00A7DAF6 /* Popover View */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
+		81876CA729911ABE00A7DAF6 /* Popover View */ = {
+			isa = PBXGroup;
+			children = (
+				81876CA829911ACF00A7DAF6 /* PopoverView.xib */,
+				81876CAA29911ADD00A7DAF6 /* PopoverView.swift */,
+			);
+			path = "Popover View";
 			sourceTree = "<group>";
 		};
 		81CF9392298C1C290073B3CF = {
@@ -91,8 +125,8 @@
 			children = (
 				81CF93B3298C1CF10073B3CF /* Scene */,
 				81DC34F7298D2592004570C0 /* View */,
+				81132F9829923D0F00E3272B /* Model */,
 				81DC34F8298D2597004570C0 /* Extra */,
-				81CF93A7298C1C2A0073B3CF /* Assets.xcassets */,
 				81CF93AC298C1C2A0073B3CF /* Info.plist */,
 			);
 			path = "Image Markup App";
@@ -118,6 +152,7 @@
 		81DC34F7298D2592004570C0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				81876CA629911AB600A7DAF6 /* Xib */,
 				8115F68D298D31C4001EC4B5 /* Component */,
 				81DC34F9298D25AE004570C0 /* Storyboard */,
 			);
@@ -128,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				8115F68A298D2A82001EC4B5 /* Helper */,
+				81CF93A7298C1C2A0073B3CF /* Assets.xcassets */,
 				81CF939E298C1C290073B3CF /* AppDelegate.swift */,
 				81CF93A0298C1C290073B3CF /* SceneDelegate.swift */,
 			);
@@ -203,6 +239,7 @@
 			files = (
 				81CF93AB298C1C2A0073B3CF /* LaunchScreen.storyboard in Resources */,
 				81CF93A8298C1C2A0073B3CF /* Assets.xcassets in Resources */,
+				81876CA929911ACF00A7DAF6 /* PopoverView.xib in Resources */,
 				81CF93A6298C1C290073B3CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,10 +253,13 @@
 			files = (
 				81CF93B6298C1D140073B3CF /* EditViewController.swift in Sources */,
 				8115F68C298D2A8F001EC4B5 /* StoryboardHandler.swift in Sources */,
+				81876CAB29911ADD00A7DAF6 /* PopoverView.swift in Sources */,
 				81CF939F298C1C290073B3CF /* AppDelegate.swift in Sources */,
 				8115F691298D3256001EC4B5 /* UIView+Constraints.swift in Sources */,
+				81132F9A29923D2300E3272B /* Pen.swift in Sources */,
 				8115F68F298D323B001EC4B5 /* DrawingView.swift in Sources */,
 				81CF93A1298C1C290073B3CF /* SceneDelegate.swift in Sources */,
+				81876CAD299124F800A7DAF6 /* PopoverViewController.swift in Sources */,
 				8115F689298D29EF001EC4B5 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

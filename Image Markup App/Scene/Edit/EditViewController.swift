@@ -61,18 +61,64 @@ class EditViewController: UIViewController {
         self.delegate?.didTapUndo()
     }
     @IBAction func didTapArrowButton(_ sender: Any) {
+       
         self.delegate?.didTapAddArrow()
     }
     @IBAction func didTapColorButton(_ sender: Any) {
         
-        if colorButtonImageView.tintColor == . red{
-            
-            colorButtonImageView.tintColor = .blue
-        }else{
-            colorButtonImageView.tintColor = .red
-        }
+        showPopOver(colorButton)
+       // self.delegate?.didTapChangeColor()
         
-        self.delegate?.didTapChangeColor()
     }
     
+}
+
+extension EditViewController:UIPopoverPresentationControllerDelegate,PopoverViewDelegate{
+    
+    func didTapCellOne(itemType: PopoverItem, value: Any) {
+        updateItemValue(itemType: itemType, value: value)
+    }
+    
+    func didTapCellTwo(itemType: PopoverItem, value: Any) {
+        updateItemValue(itemType: itemType, value: value)
+    }
+    
+    func didTapCellThree(itemType: PopoverItem, value: Any) {
+        updateItemValue(itemType: itemType, value: value)
+    }
+    
+    private func updateItemValue(itemType: PopoverItem, value: Any){
+        
+        switch itemType {
+        case .penSize:
+            break
+        case .image:
+            break
+        default:
+            colorButtonImageView.tintColor = value as? UIColor
+            drawingBoard.pen.setColor(color: value as? UIColor ?? .black)
+        }
+        self.dismiss(animated: true)
+    }
+    
+    
+    func showPopOver(_ sender: Any){
+        
+        let vc = PopoverViewController.instantiate(fromStoryboard: .Main)
+        vc.parentController = self
+        vc.preferredContentSize = CGSize(width: 50,height: 200)
+                vc.modalPresentationStyle = .popover
+                if let pres = vc.presentationController {
+                    pres.delegate = self
+                }
+                self.present(vc, animated: true)
+                if let pop = vc.popoverPresentationController {
+                    pop.sourceView = (sender as! UIView)
+                    pop.sourceRect = (sender as! UIView).bounds
+                }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
 }
