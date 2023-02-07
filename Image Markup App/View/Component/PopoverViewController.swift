@@ -12,6 +12,7 @@ class PopoverViewController: UIViewController {
     @IBOutlet weak var popupView: UIView!
     
     var parentController:UIViewController?
+    var itemType:PopoverItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,8 @@ class PopoverViewController: UIViewController {
                 bundle: Bundle(for: PopoverView.self)
         ).instantiate(withOwner: self, options: nil).first as? UIView else { return }
         (customPopup as? PopoverView)?.delegate = parentController as? any PopoverViewDelegate
-        (customPopup as? PopoverView)?.itemType = .color
+        (customPopup as? PopoverView)?.itemType = self.itemType
+        (customPopup as? PopoverView)?.prepareView()
         customPopup.bounds = self.view.bounds
         customPopup.frame = self.view.frame
         self.view.addSubview(customPopup)

@@ -55,20 +55,18 @@ class EditViewController: UIViewController {
     }
     
     @IBAction func didTapPenSizeButton(_ sender: Any) {
-        self.delegate?.didTapPenSize()
+        showPopOver(penSizeButton ?? UIView(), type: .penSize)
     }
     @IBAction func didTapUndoButton(_ sender: Any) {
         self.delegate?.didTapUndo()
     }
     @IBAction func didTapArrowButton(_ sender: Any) {
-       
-        self.delegate?.didTapAddArrow()
+        
+        showPopOver(arrowButton ?? UIView(), type: .image)
     }
     @IBAction func didTapColorButton(_ sender: Any) {
         
-        showPopOver(colorButton)
-       // self.delegate?.didTapChangeColor()
-        
+        showPopOver(colorButton ?? UIView(), type: .color)
     }
     
 }
@@ -91,7 +89,8 @@ extension EditViewController:UIPopoverPresentationControllerDelegate,PopoverView
         
         switch itemType {
         case .penSize:
-            break
+            drawingBoard.pen.setStrokeSize(size: value as? CGFloat ?? 8)
+            drawingBoard.pen.setOutlineSize(size: (value as? CGFloat ?? 8) + 4.0 )
         case .image:
             break
         default:
@@ -102,10 +101,11 @@ extension EditViewController:UIPopoverPresentationControllerDelegate,PopoverView
     }
     
     
-    func showPopOver(_ sender: Any){
+    func showPopOver(_ sender: Any,type:PopoverItem){
         
         let vc = PopoverViewController.instantiate(fromStoryboard: .Main)
         vc.parentController = self
+        vc.itemType = type
         vc.preferredContentSize = CGSize(width: 50,height: 200)
                 vc.modalPresentationStyle = .popover
                 if let pres = vc.presentationController {

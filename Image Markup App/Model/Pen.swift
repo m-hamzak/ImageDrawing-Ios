@@ -16,8 +16,8 @@ class Pen {
     
     init() {
         self.color = .black
-        self.strokeSize = 8
-        self.outlineSize = 12
+        self.strokeSize = 4
+        self.outlineSize = 8
     }
     
     func getColor() -> UIColor{

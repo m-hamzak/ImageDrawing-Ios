@@ -33,7 +33,6 @@ class PopoverView: UIView {
 
     public override func awakeFromNib() {
         super.awakeFromNib()
-        prepareView()
     }
     
     override init(frame: CGRect) {
@@ -54,7 +53,7 @@ class PopoverView: UIView {
         
     }
     
-    private func prepareView(){
+    func prepareView(){
         
         setupPopoverItems(itemType: self.itemType ?? .color)
     }
@@ -82,8 +81,19 @@ class PopoverView: UIView {
     }
     
     private func setPenSizeItem(){
+     
+        let thinImage = UIImage(systemName: "scribble", withConfiguration: UIImage.SymbolConfiguration(weight: .ultraLight)) ?? UIImage()
+        setCellOneImage(image:thinImage)
+        cellOneImageView.tintColor = .gray
+        let mediumImage = UIImage(systemName: "scribble", withConfiguration: UIImage.SymbolConfiguration(weight: .regular)) ?? UIImage()
+        setCellTwoImage(image:mediumImage)
+        cellTwoImageView.tintColor = .gray
+        let heavyImage = UIImage(systemName: "scribble", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy)) ?? UIImage()
+        setCellThreeImage(image:heavyImage)
+        cellThreeImageView.tintColor = .gray
         
     }
+    
     private func setImageItem(){
         
     }
@@ -126,7 +136,7 @@ class PopoverView: UIView {
         
         switch itemType {
         case .penSize:
-            break
+            return CGFloat(2)
         case .image:
             break
         default:
@@ -140,7 +150,7 @@ class PopoverView: UIView {
         
         switch itemType {
         case .penSize:
-            break
+            return CGFloat(4)
         case .image:
             break
         default:
@@ -153,7 +163,7 @@ class PopoverView: UIView {
         
         switch itemType {
         case .penSize:
-            break
+            return CGFloat(6)
         case .image:
             break
         default:
