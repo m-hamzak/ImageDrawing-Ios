@@ -7,21 +7,24 @@
 
 import UIKit
 
+protocol DrawingViewDelegate {
+    func didDrawArrow()
+}
 class DrawingView: UIView {
     
     private var lastPoint: CGPoint = .zero
     private var currentPath = UIBezierPath()
     private var currentLayer: CAShapeLayer = CAShapeLayer()
-    private let pencil = Pencil()
     private let canvasView = UIView()
     private let mainImageView = UIImageView()
-    let pen = Pen()
+    private let pen = Pen()
     
     var completedImage = UIImage()
-    var isDrawing: Bool = true
+    var isDrawingArrow: Bool = false
     var testImage = UIImage()
     
     var parentController:UIViewController?
+    var delegate:DrawingViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +34,7 @@ class DrawingView: UIView {
                    }
         
         mainImageView.pinToSuperViewEdges()
-        testImage = UIImage(named: "test") ?? UIImage()
+        testImage = UIImage(named: "test2") ?? UIImage()
         
         self.mainImageView.image = testImage
         self.mainImageView.contentMode = .scaleAspectFit
@@ -47,22 +50,22 @@ class DrawingView: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
+        
         guard let touch = touches.first else { return }
         
         lastPoint = touch.location(in: canvasView)
-        if isDrawing {
-            currentLayer = CAShapeLayer()
-            currentPath = UIBezierPath()
-            canvasView.layer.addSublayer(currentLayer)
-        }
+        //        if isDrawingArrow {
+        currentLayer = CAShapeLayer()
+        currentPath = UIBezierPath()
+        canvasView.layer.addSublayer(currentLayer)
+//    }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         
         let currentPoint = touch.location(in: canvasView)
-        if isDrawing {
+        if !isDrawingArrow {
             drawLine(from: lastPoint, to: currentPoint)
         }
         lastPoint = currentPoint
@@ -70,14 +73,17 @@ class DrawingView: UIView {
     
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-      //  guard let touch = touches.first else { return }
+        guard let touch = touches.first else { return }
+        let currentPoint = touch.location(in: canvasView)
         // this is to make sure that when the user touches the screen again
         // He works on a new layer, this way we get one layer one drawing.
         
 //        if !isDrawing, let layer = findLayer(in: touch) {
 //            removeFromSuperLayer(from: layer)
 //        }
-        
+        if isDrawingArrow{
+            drawArrow(currentPoint: currentPoint)
+        }
         // Create and image representation of all layers in tempImageView
         let renderer = UIGraphicsImageRenderer(bounds: canvasView.bounds)
         let image = renderer.image { rendererContext in
@@ -92,17 +98,35 @@ class DrawingView: UIView {
     
     private func drawLine(from fromPoint: CGPoint, to toPoint: CGPoint) {
         if canvasView.bounds.contains(fromPoint){
-            
+
         currentPath.move(to: fromPoint)
         currentPath.addLine(to: toPoint)
-        
+
         currentLayer.path = currentPath.cgPath
         currentLayer.backgroundColor = UIColor.red.cgColor
         currentLayer.strokeColor = pen.getColor().cgColor
         currentLayer.lineWidth = pen.getStrokeSize()
         currentLayer.lineCap = .round
         currentLayer.lineJoin = .round
+ 
     }
+        
+    }
+    
+    private func drawArrow(currentPoint:CGPoint){
+        
+        let centrePoint = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+        
+        currentPath.addArrow(start: centrePoint, end: currentPoint, pointerLineLength: 30, arrowAngle: CGFloat(Double.pi / 4))
+        currentLayer.strokeColor = pen.getColor().cgColor
+        currentLayer.lineWidth = pen.getStrokeSize()
+        currentLayer.path = currentPath.cgPath
+        currentLayer.fillColor = UIColor.clear.cgColor
+        currentLayer.lineJoin = .round
+        currentLayer.lineCap = .round
+        
+        self.isDrawingArrow = false
+        self.delegate?.didDrawArrow()
     }
     
     private func findLayer(in touch: UITouch) -> CAShapeLayer? {
@@ -134,7 +158,7 @@ class DrawingView: UIView {
 
 extension DrawingView{
     
-   private func addImageLayer(){
+   private func setupImageLayer(){
         
         let myLayer = CALayer()
         myLayer.frame = canvasView.bounds
@@ -154,30 +178,11 @@ extension DrawingView{
         canvasView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         canvasView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
-        addImageLayer()
+        setupImageLayer()
         
         // removing imageview to preserve memory
         mainImageView.removeFromSuperview()
         
-        
-//        if ratio > 1 {
-//            //landscape
-//            let newHeight = mainImageView.frame.size.width / ratio
-//            canvasView.frame.size = CGSize(width: mainImageView.frame.size.width, height: newHeight)
-//            canvasView.heightAnchor.constraint(equalToConstant: newHeight).isActive = true
-//            canvasView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-//            canvasView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-//            canvasView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-//        }else{
-//            //portrait
-//            let newWidth = mainImageView.frame.size.height * ratio
-//            canvasView.frame.size = CGSize(width: newWidth, height: mainImageView.frame.size.height)
-//            canvasView.widthAnchor.constraint(equalToConstant: newWidth).isActive = true
-//            canvasView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//            canvasView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//            canvasView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-//
-//        }
 
     }
     
@@ -189,33 +194,39 @@ extension DrawingView{
         }
         
     }
+    
+    
+//    private func addImageLayer(){
+//
+//        //let myLayer = CALayer()
+//       // myLayer.frame = canvasView.bounds
+//        imageLayer.contents = testImage.cgImage
+//        imageLayer.frame.size = CGSize(width: 100, height: 100)
+//        imageLayer.position = CGPointMake(canvasView.layer.bounds.midX, canvasView.layer.bounds.midY)
+//        canvasView.layer.addSublayer(imageLayer)
+//
+//    }
 }
 
 extension DrawingView:EditViewControllerDelegate{
+    
+    func didChangeColor(color: UIColor) {
+        self.pen.setColor(color: color)
+    }
+    
+    func didChangePenSize(strokeSize: CGFloat, OutlineSize: CGFloat) {
+        self.pen.setStrokeSize(size: strokeSize)
+        self.pen.setOutlineSize(size: OutlineSize)
+    }
+    
     
     func didTapUndo() {
         removeLastLayer()
     }
     
     func didTapAddArrow() {
-        
+        self.isDrawingArrow = true
     }
     
-    func didTapChangeColor() {
-        
-    }
-    
-    func didTapPenSize() {
-        
-    }
-    
-    
-}
 
-
-
-struct Pencil {
-    let color: UIColor = .red
-    let strokeSize: CGFloat = 8
-    let outlineSize: CGFloat = 12
 }

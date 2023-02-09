@@ -12,8 +12,8 @@ protocol EditViewControllerDelegate {
     
     func didTapUndo()
     func didTapAddArrow()
-    func didTapChangeColor()
-    func didTapPenSize()
+    func didChangeColor(color:UIColor)
+    func didChangePenSize(strokeSize:CGFloat,OutlineSize:CGFloat)
     
 }
 class EditViewController: UIViewController {
@@ -27,6 +27,7 @@ class EditViewController: UIViewController {
     @IBOutlet weak var colorButtonImageView: UIImageView!
     @IBOutlet var drawingViewContainer: UIView!
     
+    @IBOutlet weak var arrowButtonImage: UIImageView!
     var delegate: EditViewControllerDelegate?
     let drawingBoard = DrawingView()
    
@@ -34,9 +35,7 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        drawingViewContainer.addSubview(drawingBoard)
-        drawingBoard.pinToSuperViewEdges()
-        drawingBoard.initializeView(parent: self)
+        prepareView()
         // Do any additional setup after loading the view.
     }
     
@@ -46,11 +45,25 @@ class EditViewController: UIViewController {
         drawingBoard.setupCanvasView()
     }
     
+    private func prepareView(){
+        setupDrawingBoard()
+    }
+    
+    private func setupDrawingBoard(){
+        
+        drawingViewContainer.addSubview(drawingBoard)
+        drawingBoard.pinToSuperViewEdges()
+        drawingBoard.clipsToBounds = true
+        drawingBoard.initializeView(parent: self)
+        drawingBoard.delegate = self
+    }
+    
     @IBAction func didTapCancel(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
     @IBAction func didTapDone(_ sender: Any) {
+        UIImageWriteToSavedPhotosAlbum(drawingBoard.completedImage, nil, nil, nil)
         self.dismiss(animated: true)
     }
     
@@ -62,7 +75,8 @@ class EditViewController: UIViewController {
     }
     @IBAction func didTapArrowButton(_ sender: Any) {
         
-        showPopOver(arrowButton ?? UIView(), type: .image)
+        self.arrowButtonImage.tintColor = .systemBlue
+        self.delegate?.didTapAddArrow()
     }
     @IBAction func didTapColorButton(_ sender: Any) {
         
@@ -71,7 +85,11 @@ class EditViewController: UIViewController {
     
 }
 
-extension EditViewController:UIPopoverPresentationControllerDelegate,PopoverViewDelegate{
+extension EditViewController:UIPopoverPresentationControllerDelegate,PopoverViewDelegate,DrawingViewDelegate{
+    
+    func didDrawArrow() {
+        self.arrowButtonImage.tintColor = .darkGray
+    }
     
     func didTapCellOne(itemType: PopoverItem, value: Any) {
         updateItemValue(itemType: itemType, value: value)
@@ -89,13 +107,15 @@ extension EditViewController:UIPopoverPresentationControllerDelegate,PopoverView
         
         switch itemType {
         case .penSize:
-            drawingBoard.pen.setStrokeSize(size: value as? CGFloat ?? 8)
-            drawingBoard.pen.setOutlineSize(size: (value as? CGFloat ?? 8) + 4.0 )
+            let strokeSize = value as? CGFloat ?? 8
+            let outlineSize = (value as? CGFloat ?? 8) + 4.0
+            self.delegate?.didChangePenSize(strokeSize: strokeSize, OutlineSize: outlineSize)
+
         case .image:
             break
         default:
+            self.delegate?.didChangeColor(color: value as? UIColor ?? .black)
             colorButtonImageView.tintColor = value as? UIColor
-            drawingBoard.pen.setColor(color: value as? UIColor ?? .black)
         }
         self.dismiss(animated: true)
     }

@@ -12,6 +12,7 @@
 		8115F68C298D2A8F001EC4B5 /* StoryboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115F68B298D2A8F001EC4B5 /* StoryboardHandler.swift */; };
 		8115F68F298D323B001EC4B5 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115F68E298D323B001EC4B5 /* DrawingView.swift */; };
 		8115F691298D3256001EC4B5 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115F690298D3256001EC4B5 /* UIView+Constraints.swift */; };
+		81492E6629937DC400142EAF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81492E6529937DC400142EAF /* Extensions.swift */; };
 		81876CA929911ACF00A7DAF6 /* PopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81876CA829911ACF00A7DAF6 /* PopoverView.xib */; };
 		81876CAB29911ADD00A7DAF6 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81876CAA29911ADD00A7DAF6 /* PopoverView.swift */; };
 		81876CAD299124F800A7DAF6 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81876CAC299124F800A7DAF6 /* PopoverViewController.swift */; };
@@ -28,6 +29,7 @@
 		8115F68B298D2A8F001EC4B5 /* StoryboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardHandler.swift; sourceTree = "<group>"; };
 		8115F68E298D323B001EC4B5 /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		8115F690298D3256001EC4B5 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		81492E6529937DC400142EAF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		81876CA829911ACF00A7DAF6 /* PopoverView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverView.xib; sourceTree = "<group>"; };
 		81876CAA29911ADD00A7DAF6 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		81876CAC299124F800A7DAF6 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			children = (
 				8115F690298D3256001EC4B5 /* UIView+Constraints.swift */,
 				8115F68B298D2A8F001EC4B5 /* StoryboardHandler.swift */,
+				81492E6529937DC400142EAF /* Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				8115F68F298D323B001EC4B5 /* DrawingView.swift in Sources */,
 				81CF93A1298C1C290073B3CF /* SceneDelegate.swift in Sources */,
 				81876CAD299124F800A7DAF6 /* PopoverViewController.swift in Sources */,
+				81492E6629937DC400142EAF /* Extensions.swift in Sources */,
 				8115F689298D29EF001EC4B5 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +414,7 @@
 				DEVELOPMENT_TEAM = 5DM59C3H88;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Image Markup App/Info.plist";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use to save photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -438,6 +443,7 @@
 				DEVELOPMENT_TEAM = 5DM59C3H88;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Image Markup App/Info.plist";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Use to save photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
