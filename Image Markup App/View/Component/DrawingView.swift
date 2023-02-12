@@ -115,18 +115,20 @@ class DrawingView: UIView {
     
     private func drawArrow(currentPoint:CGPoint){
         
-        let centrePoint = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
-        
-        currentPath.addArrow(start: centrePoint, end: currentPoint, pointerLineLength: 30, arrowAngle: CGFloat(Double.pi / 4))
-        currentLayer.strokeColor = pen.getColor().cgColor
-        currentLayer.lineWidth = pen.getStrokeSize()
-        currentLayer.path = currentPath.cgPath
-        currentLayer.fillColor = UIColor.clear.cgColor
-        currentLayer.lineJoin = .round
-        currentLayer.lineCap = .round
-        
-        self.isDrawingArrow = false
-        self.delegate?.didDrawArrow()
+        if canvasView.bounds.contains(currentPoint){
+            let centrePoint = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+            
+            currentPath.addArrow(start: centrePoint, end: currentPoint, pointerLineLength: 30, arrowAngle: CGFloat(Double.pi / 4))
+            currentLayer.strokeColor = pen.getColor().cgColor
+            currentLayer.lineWidth = pen.getStrokeSize()
+            currentLayer.path = currentPath.cgPath
+            currentLayer.fillColor = UIColor.clear.cgColor
+            currentLayer.lineJoin = .round
+            currentLayer.lineCap = .round
+            
+            self.isDrawingArrow = false
+            self.delegate?.didDrawArrow()
+        }
     }
     
     private func findLayer(in touch: UITouch) -> CAShapeLayer? {
