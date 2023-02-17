@@ -12,6 +12,7 @@ protocol EditViewControllerDelegate {
     
     func didTapUndo()
     func didTapAddArrow()
+    func didTapPen()
     func didChangeColor(color:UIColor)
     func didChangePenSize(strokeSize:CGFloat,OutlineSize:CGFloat)
     
@@ -24,10 +25,12 @@ class EditViewController: UIViewController {
     @IBOutlet weak var arrowButton: UIView!
     @IBOutlet weak var undoButton: UIView!
     @IBOutlet weak var penSizeButton: UIView!
+    @IBOutlet weak var penButton: UIView!
     @IBOutlet weak var colorButtonImageView: UIImageView!
     @IBOutlet var drawingViewContainer: UIView!
     
     @IBOutlet weak var arrowButtonImage: UIImageView!
+    @IBOutlet weak var penButtonImage: UIImageView!
     var delegate: EditViewControllerDelegate?
     let drawingBoard = DrawingView()
    
@@ -47,6 +50,7 @@ class EditViewController: UIViewController {
     
     private func prepareView(){
         setupDrawingBoard()
+        penButtonImage.tintColor = .systemBlue
     }
     
     private func setupDrawingBoard(){
@@ -75,12 +79,19 @@ class EditViewController: UIViewController {
     }
     @IBAction func didTapArrowButton(_ sender: Any) {
         
-        self.arrowButtonImage.tintColor = .systemBlue
+        arrowButtonImage.tintColor = .systemBlue
+        penButtonImage.tintColor = .darkGray
         self.delegate?.didTapAddArrow()
     }
     @IBAction func didTapColorButton(_ sender: Any) {
         
         showPopOver(colorButton ?? UIView(), type: .color)
+    }
+    @IBAction func didTapPenButton(_ sender: Any) {
+        
+        penButtonImage.tintColor = .systemBlue
+        arrowButtonImage.tintColor = .darkGray
+        self.delegate?.didTapPen()
     }
     
 }

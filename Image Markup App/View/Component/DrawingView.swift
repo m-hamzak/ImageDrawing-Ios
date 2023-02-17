@@ -126,8 +126,8 @@ class DrawingView: UIView {
             currentLayer.lineJoin = .round
             currentLayer.lineCap = .round
             
-            self.isDrawingArrow = false
-            self.delegate?.didDrawArrow()
+//            self.isDrawingArrow = false
+//            self.delegate?.didDrawArrow()
         }
     }
     
@@ -211,6 +211,10 @@ extension DrawingView{
 }
 
 extension DrawingView:EditViewControllerDelegate{
+    
+    func didTapPen() {
+        self.isDrawingArrow = false
+    }
     
     func didChangeColor(color: UIColor) {
         self.pen.setColor(color: color)
