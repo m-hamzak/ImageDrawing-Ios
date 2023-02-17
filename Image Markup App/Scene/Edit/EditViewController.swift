@@ -48,6 +48,11 @@ class EditViewController: UIViewController {
         drawingBoard.setupCanvasView()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+
+        return .portrait
+    }
+    
     private func prepareView(){
         setupDrawingBoard()
         penButtonImage.tintColor = .systemBlue
